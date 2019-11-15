@@ -1,0 +1,39 @@
+{
+    "linterOptions": {
+        "exclude": [
+            "**/**.js",
+            "node_modules",
+            "node_modules/**/node_modules"
+        ]
+    },
+    "rules": {
+        "no-var-requires": false,
+        "interface-name": false,
+        "max-line-length": [
+            true, {
+                "limit": 120,
+                "ignore-pattern": "^\\s*(d|points)=\"[A-Za-z.0-9,\\s-]*\"$"
+            }
+        ],
+       "no-console": [
+           true,
+           "clear",
+           "assert",
+           "count",
+           "countReset",
+           "dir",
+           "dirxml",
+           "group",
+           "groupCollapsed",
+           "groupEnd",
+           "profile",
+           "profileEnd",
+           "table",
+           "time",
+           "timeEnd",
+           "timeStamp",
+           "trace",
+           "warn"
+        ]
+    }
+}
