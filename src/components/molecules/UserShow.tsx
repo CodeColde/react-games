@@ -57,7 +57,8 @@ const Name = styled(Paragraph)`
 const Dropdown = styled.div<{ darkMode: DarkMode; }>`
     z-index: 2;
     position: absolute;
-    background-color: white;
+    background-color: ${({ darkMode }) => darkMode ? theme.colors.darkBlack : theme.colors.white};
+    color: ${({ darkMode }) => darkMode ? theme.colors.lightWhite : theme.colors.black};
     border-radius: 5px;
     top: 70%;
     min-width:7rem;
