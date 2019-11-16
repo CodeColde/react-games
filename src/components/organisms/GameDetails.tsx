@@ -1,19 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
-import { IMainProbability, IRankFields } from 'entities/GameData';
+import { IMainProbability, IRankFields, IData } from 'entities/GameData';
 import MediaSlideshow from './MediaSlideshow';
 import Header from 'components/atoms/Header';
 import GenreTag from 'components/molecules/GenreTag';
 import CoverDetails from './CoverDetails';
 import Paragraph from 'components/atoms/Paragraph';
 import Franchise from 'components/molecules/Franchise';
-import Spinner from 'components/atoms/Spinner';
+import NotFound from './NotFound';
 
 interface Props {
-    data: any;
+    data: IData;
 }
 const GameDetails: React.FC<Props> = ({ data }) => {
-
     return (
         data
         ? <>
@@ -40,7 +39,7 @@ const GameDetails: React.FC<Props> = ({ data }) => {
             ))}
             <MediaSlideshow mediaArray={data.media_files} />
         </>
-        : <Spinner />
+        : <NotFound />
     );
 };
 

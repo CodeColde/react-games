@@ -6,17 +6,15 @@ import Login from 'components/Login';
 import { connect } from 'react-redux';
 import { AppState } from 'redux-state';
 import { UserLogin } from 'redux-state/login/types';
-// import Game from 'components/Game';
+import Game from 'components/Game';
 import GenreItem from 'components/GenreItem';
 import Genre from 'components/Genre';
-import GameClass from 'components/GameClass';
 
 interface Props {
   login: UserLogin;
 }
 
 const Root: React.FC<Props> = ({ login }) => {
-
   const loggedIn = login && login.username;
 
   return (
@@ -31,8 +29,8 @@ const Root: React.FC<Props> = ({ login }) => {
         {loggedIn ? <Home /> : <Redirect to="/" />}
       </Route>
       <Route exact path="/game"><Redirect to="/" /></Route>
-      <Route exact path="/game/:game" sensitive>
-        {loggedIn ? ({ match }) => !!match && <GameClass match={match} /> : <Redirect to="/" />}
+      <Route exact path="/game/:game">
+        {loggedIn ? <Game /> : <Redirect to="/" />}
       </Route>
       <Route exact path="/genre">
         {loggedIn ? <Genre /> : <Redirect to="/" />}
