@@ -16,7 +16,7 @@ interface Props {
     handleClick: () => void;
 }
 const SearchItem: React.FC<Props> = ({ data, darkMode, handleClick }) => {
-    const prepSlug = data.game.split(' ').join('_');
+    const prepSlug = data.game.split(' ').join('_').split(`'`).join('');
     return (
         <Wrapper darkMode={darkMode} onClick={handleClick}>
             <ItemWrapper>

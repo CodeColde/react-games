@@ -14,7 +14,7 @@
     "extends": "react-app"
   },
   "dependencies": {
-    "@codecolde/use-fetch": "0.0.9",
+    "@codecolde/use-fetch": "0.0.10",
     "@types/react-slick": "^0.23.4",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",

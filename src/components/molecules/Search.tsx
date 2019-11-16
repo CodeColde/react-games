@@ -54,8 +54,8 @@ const Search: React.FC<Props> = ({ darkMode }) => {
             <Results darkMode={darkMode} hasValue={!!search}>
                 <List>
                     {searchData.length > 0
-                        ? searchData.map((item) => (
-                                <SearchItem data={item} handleClick={() => setSearch('')}/>
+                        ? searchData.map((item, i) => (
+                                <SearchItem key={i} data={item} handleClick={() => setSearch('')}/>
                             )
                         ) : <Header>No results found...</Header>
                     }

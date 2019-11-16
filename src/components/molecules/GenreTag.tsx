@@ -22,5 +22,5 @@ const Tag = styled.p`
     border: 1px solid ${theme.colors.green};
     padding: 0.5rem;
     display: inline-block;
-    margin:0;
+    margin:0 0.5rem 0 0;
 `;

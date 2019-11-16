@@ -40,15 +40,15 @@ const MediaSlideshow: React.FC<Props> = ({ mediaArray, darkMode }) => {
                     }
                     if (media.type === 'image') {
                         return (
-                            <MediaContainer>
-                                <Image src={url} alt={url} key={media.id} />
+                            <MediaContainer key={media.id}>
+                                <Image src={url} alt={url} />
                             </MediaContainer>
                         );
                     }
                     if (media.type === 'video') {
                         return (
-                            <MediaContainer>
-                                <Video src={url} height="auto" width="auto" key={media.id} />
+                            <MediaContainer key={media.id}>
+                                <Video src={url} height="auto" width="auto" />
                             </MediaContainer>
                         );
                     }

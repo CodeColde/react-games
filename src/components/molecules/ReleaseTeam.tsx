@@ -24,9 +24,9 @@ const ReleaseTeam: React.FC<Props> = ({ publishers, developers}) => {
 
     return (
         <>
-            <Header variant="Big">Publishers</Header>
+            <Header>Publishers</Header>
             <Paragraph>{publisherString ? publisherString : 'Not listed'}</Paragraph>
-            <Header variant="Big">Developers</Header>
+            <Header>Developers</Header>
             <Paragraph>{developersString ? developersString : 'Not listed'}</Paragraph>
         </>
     )

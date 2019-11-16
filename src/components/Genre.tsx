@@ -8,22 +8,17 @@ import styled from 'styled-components';
 import Header from './atoms/Header';
 import theme from 'constants/theme';
 import FilterTitle from './molecules/FilterTitle';
+import authenticationHeader from 'constants/authenticationHeader';
 
 const Genre = () => {
     const [sortBy, setSortBy] = React.useState('alphabetical');
     const [asc, setAsc] = React.useState(true);
 
-    const token = process.env.REACT_APP_CLIENT_TOKEN || '';
     const [loading, data] = useFetch(
         "https://api.newzoo.com/v1.0/metadata/genre/search",
         {
             method: "POST",
-            cache: "reload",
-            headers: {
-                'Content-Type': 'json',
-                'Access-Control-Allow-Credentials': 'true',
-                'Authorization': token
-            }
+            headers: authenticationHeader
         },
         "allGenres",
         "local"

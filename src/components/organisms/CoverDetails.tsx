@@ -36,14 +36,24 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    max-width: 35rem;
+    width: 35rem;
 
     @media screen and (max-width: ${theme.mediaQueries.width.s}) {
         flex-direction: column;
         justify-content: flex-start;
+        width: 100%;
     }
 `;
 
 const TextWrapper = styled.div`
-    max-width: 225px;
+    width: 100%;
+    box-sizing: border-box;
+    padding-left: 3rem;
+
+    @media screen and (max-width: ${theme.mediaQueries.width.m}) {
+        padding-left: 3rem;
+    }
+    @media screen and (max-width: ${theme.mediaQueries.width.s}) {
+        padding-left: 0;
+    }
 `;

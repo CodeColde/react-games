@@ -9,42 +9,38 @@ import MediaSlideshow from './organisms/MediaSlideshow';
 import ContentWrapper from './molecules/ContentWrapper';
 import styled from 'styled-components';
 import theme from 'constants/theme';
+import NotFound from './organisms/NotFound';
+import createUrl from 'utils/createUrl';
+import authenticationHeader from 'constants/authenticationHeader';
 
 const GenreItem: React.FC = () => {
     const { genre } = useParams();
 
-    const token = process.env.REACT_APP_CLIENT_TOKEN || '';
-    const url = new URL("https://api.newzoo.com/v1.0/metadata/genre/search");
-    const queryParams = {
+    const Url = createUrl("https://api.newzoo.com/v1.0/metadata/genre/search", {
+        nouns: ['genre'],
         search_text: genre,
-    };
-    Object.keys(queryParams).forEach(key => url.searchParams.append(key, queryParams[key]));
-    const [loading, data] = useFetch(url,
-        {
-            method: "POST",
-            cache: "reload",
-            headers: {
-                'Content-Type': 'json',
-                'Access-Control-Allow-Credentials': 'true',
-                'Authorization': token
-            },
-        },
-        genre,
-        "local"
-    );
+    });
+    const [loading, data] = useFetch(Url, {
+        method: "POST",
+        headers: authenticationHeader
+    }, genre, "local");
 
     return (
         <ContentWrapper>
             {loading
-                ? <Spinner />
-                : data.map((entry: IGenreInfo) => (
-                    <Fragment key={entry.id}>
-                        <GenreTitle variant="Large">{entry.name}</GenreTitle>
-                        <Span>{entry.alternate_names.join(' - ')}</Span>
-                        <Paragraph>{entry.description}</Paragraph>
-                        <MediaSlideshow mediaArray={entry.media_files} />
-                    </Fragment>
-                ))
+            ? <Spinner />
+            : (data && data.length > 0)
+                ? data.map((entry: IGenreInfo) =>
+                    (entry && entry.id)
+                    ? (
+                        <Fragment key={entry.id}>
+                            {entry.name && <GenreTitle variant="Large">{entry.name}</GenreTitle>}
+                            {entry.alternate_names && <Span>{entry.alternate_names.join(' - ')}</Span>}
+                            {entry.description && <Paragraph>{entry.description}</Paragraph>}
+                            {entry.media_files && <MediaSlideshow mediaArray={entry.media_files} />}
+                        </Fragment>
+                    ) : <NotFound />
+                ) : <NotFound />
             }
         </ContentWrapper>
     )

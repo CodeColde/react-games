@@ -62,9 +62,7 @@ const Register: React.FC<Props> = ({ users, createUser, history }) => {
       <Error variant="Small">{error}</Error>
       <Submit onClick={handleClick}>Register</Submit>
       <Paragraph>or</Paragraph>
-      <Paragraph>
-        <Anchor url="/">Login</Anchor>
-      </Paragraph>
+      <Anchor url="/">Login</Anchor>
     </EntryWrapper>
   );
 };

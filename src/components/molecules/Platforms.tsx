@@ -13,7 +13,7 @@ const Platforms: React.FC<Props> = ({ release_dates }) => {
 
     return (
         <>
-            <Header variant="Default">Platforms</Header>
+            <Header>Platforms</Header>
             <Paragraph>{platformString}</Paragraph>
         </>
     )

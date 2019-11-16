@@ -58,7 +58,7 @@ const Login: React.FC<Props> = ({ users, loginAction, history }) => {
             <Error variant="Small">{error}</Error>
             <Submit onClick={handleLogin}>Login</Submit>
             <Paragraph>or</Paragraph>
-            <Paragraph><Anchor url="/register/">Register</Anchor></Paragraph>
+            <Anchor url="/register/">Register</Anchor>
         </EntryWrapper>
     );
 };

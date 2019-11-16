@@ -6,8 +6,6 @@ interface Props {
 }
 
 const CoverImage: React.FC<Props> = ({ name }) => {
-    // https://api-test.newzoo.com:443/v1.0/metadata/game/boxart?name=Mobile Legends: Bang bang
-    // https://api-test.newzoo.com:443/v1.0/metadata/game/boxart?name=Mobile Legends: Bang Bang
     return (
         <Image
             src={`https://api-test.newzoo.com:443/v1.0/metadata/game/boxart?name=${name}`}
