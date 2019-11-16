@@ -49,7 +49,7 @@ const Body = styled.main`
     flex-grow: 1;
 
     @media screen and (max-width: ${theme.mediaQueries.width.s}) {
-        padding: 2rem 0 5rem;
+        padding: calc(170px + 2rem) 0 5rem;
     }
 `;
 

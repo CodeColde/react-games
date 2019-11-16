@@ -59,4 +59,8 @@ const Title = styled(Header)<{isCurrentPage: boolean; darkMode: DarkMode;}>`
     };
     margin: 0;
     padding: 0 5rem 0 0;
+
+    @media screen and (max-width: ${theme.mediaQueries.width.s}){
+        padding: 0 2rem 0 0;
+    }
 `;

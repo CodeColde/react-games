@@ -48,6 +48,6 @@ const Body = styled.main<Props>`
     color: ${({ darkMode }) => darkMode ? theme.colors.lightWhite : theme.colors.black};
 
     @media screen and (max-width: ${theme.mediaQueries.width.s}) {
-        padding: 2rem;
+        padding: 170px 2rem 2rem;
     }
 `;
