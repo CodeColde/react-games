@@ -6,12 +6,7 @@ import createUrl from 'utils/createUrl';
 import useFetch from '@codecolde/use-fetch';
 import authenticationHeader from 'constants/authenticationHeader';
 import NotFound from './organisms/NotFound';
-
-interface SearchResults {
-  id: string;
-  type: "game";
-  name: string;
-}
+import usePrevious from 'utils/usePrevious';
 
 interface IMatch {
   isExact: boolean;
@@ -26,9 +21,8 @@ interface Props {
 }
 
 const Game: React.FC<Props> = ({ match }) => {
-  const [game, setGame] = React.useState(match && match.params && match.params.game)
-
-  const [isLoading, setLoading] = React.useState(true);
+  const game = match && match.params && match.params.game;
+  const prevGame = usePrevious({ game });
 
   const Url = createUrl("https://api.newzoo.com/v1.0/metadata/noun/search", {
       nouns: ['game', 'genre', 'country'],
@@ -52,25 +46,20 @@ const Game: React.FC<Props> = ({ match }) => {
   );
 
   React.useEffect(() => {
-    if (!loading && !loadGame) {
-        setTimeout(() => {
-          setLoading(false);
-        }, 1000);
-    } else {
-        setLoading(true);
+    if(prevGame && prevGame.game !== game){
+      console.log('new game');
     }
-    setGame(match.params.game);
-  }, [loading, loadGame, match]);
+  }, [game, prevGame]);
+
+  const isLoading = !!loading && !!loadGame;
 
   return (
     <ContentWrapper>
       {game ?
         isLoading
           ? <Spinner />
-          : (data && data.length > 0)
-            ? data.map((entry: SearchResults) => (
-              <GameDetails data={gameData} key={entry.id} />
-            ))
+          : gameData
+            ? <GameDetails data={gameData} />
             : <NotFound />
         : <NotFound />
       }
