@@ -3,6 +3,7 @@ import GameListItem, { IGameListItem } from './GameListItem';
 import styled from 'styled-components';
 import FilterTitle from 'components/molecules/FilterTitle';
 import theme from 'constants/theme';
+import NotFound from './NotFound';
 
 interface GameData {
     data: Array<IGameListItem>;
@@ -30,7 +31,7 @@ const GameList: React.FC<Props> = ({ preparingImages, data }) => {
         return true;
     });
 
-    const sortedData = filteredData.sort((prev, curr) => {
+    const sortedData = filteredData ? filteredData.sort((prev, curr) => {
         switch(sortBy) {
             case 'rank':
                 return curr.current_rank < prev.current_rank ? 1 : -1;
@@ -45,9 +46,12 @@ const GameList: React.FC<Props> = ({ preparingImages, data }) => {
             default:
                 return 1;
         }
-    });
+    }) : 'error';
 
-    const ascDescData = asc ? sortedData : sortedData.reverse();
+    const ascDescData = sortedData !== 'error' && (asc ? sortedData : sortedData.reverse());
+    if (sortedData === 'error') {
+        console.error(`Oops! Something went wrong. Either the API URL is incorrect or your requests aren't being authenticated. \n\n Check your REACT_APP_CLIENT_TOKEN in the .env file!`);
+    }
 
     return (
         <>
@@ -60,11 +64,14 @@ const GameList: React.FC<Props> = ({ preparingImages, data }) => {
             >
                 games
             </FilterTitle>
-            <Wrapper preparingImages={preparingImages}>
-                {ascDescData && ascDescData.map((entry, i) => (
-                    <GameListItem game={entry} key={i} />
-                ))}
-            </Wrapper>
+            {sortedData !== 'error'
+                ? <Wrapper preparingImages={preparingImages}>
+                    {ascDescData && ascDescData.map((entry, i) => (
+                        <GameListItem game={entry} key={i} />
+                    ))}
+                    </Wrapper>
+                : <NotFound />
+            }
         </>
     )
 }
