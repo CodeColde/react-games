@@ -1,3 +1,5 @@
+To make this project work, please copy the .env.dist file to a .env file and fill in the credentials.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
