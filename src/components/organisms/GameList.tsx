@@ -20,10 +20,10 @@ const GameList: React.FC<Props> = ({ preparingImages, data }) => {
     const [asc, setAsc] = React.useState(false);
 
     const filteredData = data && data.data && data.data.filter((item) => {
-        if(item.title.indexOf(':') >= 0) {
+        if(item.game.indexOf(':') >= 0) {
             const exists = data.data.find(
                 (search) => {
-                    return search.title === item.title.replace(":", "");
+                    return search.game === item.game.replace(":", "");
                 }
             );
             return !exists;
@@ -34,9 +34,9 @@ const GameList: React.FC<Props> = ({ preparingImages, data }) => {
     const sortedData = filteredData ? filteredData.sort((prev, curr) => {
         switch(sortBy) {
             case 'rank':
-                return curr.rank < prev.rank ? 1 : -1;
+                return curr.current_rank < prev.current_rank ? 1 : -1;
             case 'alphabetical':
-                return curr.title < prev.title ? 1 : -1;
+                return curr.game < prev.game ? 1 : -1;
             case 'genre':
                 let sortNum = -1;
                 if (curr.genre === null) {
