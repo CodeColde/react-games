@@ -59,6 +59,7 @@ const GameList: React.FC<Props> = ({ preparingImages, data }) => {
     }) : 'error';
 
     const ascDescData = sortedData !== 'error' && (asc ? sortedData : sortedData.reverse());
+
     if (sortedData === 'error') {
         console.error(`Oops! Something went wrong. Either the API URL is incorrect or your requests aren't being authenticated. \n\n Check your REACT_APP_CLIENT_TOKEN in the .env file!`);
     }

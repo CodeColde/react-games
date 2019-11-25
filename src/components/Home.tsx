@@ -5,10 +5,11 @@ import Spinner from './atoms/Spinner';
 import GameList from './organisms/GameList';
 import authenticationHeader from 'constants/authenticationHeader';
 import createUrl from 'utils/createUrl';
+import ErrorBlock from './molecules/ErrorBlock';
 
 const Home: React.FC = () => {
   const [imagePrep, setImagePrep] = React.useState(true);
-  // https://api.newzoo.com/v1.0/pc_player_usage/game/comparison_data?fields=rank,rank_change,title,publisher,genre,player_share,sessions_per_user_per_day,average_playtime_per_day,average_session_time&start_date=2019-10-01&end_date=2019-10-31&comp_start_date=2019-09-01&comp_end_date=2019-09-30&geo_type=global
+
   const Url = createUrl(
     "https://api.newzoo.com/v1.0/viewership/table_rankings",
     {
@@ -18,7 +19,7 @@ const Home: React.FC = () => {
       end_date: '2019-10-31',
       platforms: ['YouTube','Twitch'],
       limit: 51,
-      __permission_set: 'Game Rankings'
+      __permission_set: "Game Rankings"
     }
   );
 
@@ -34,10 +35,12 @@ const Home: React.FC = () => {
     <MainWrapper>
       {(loading && imagePrep)
         ? <Spinner />
-        : <>
-            {imagePrep && <Spinner />}
-            <GameList data={data} preparingImages={imagePrep} />
-          </>
+        : data.isError
+          ? <ErrorBlock data={data} />
+          : <>
+              {imagePrep && <Spinner />}
+              <GameList data={data} preparingImages={imagePrep} />
+            </>
       }
     </MainWrapper>
   );
