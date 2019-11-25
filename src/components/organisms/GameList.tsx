@@ -7,7 +7,7 @@ import NotFound from './NotFound';
 
 interface GameData {
     data: Array<IGameListItem>;
-    data_stream: "viewership";
+    data_stream: "pc_player_usage";
 }
 
 interface Props {
@@ -20,10 +20,10 @@ const GameList: React.FC<Props> = ({ preparingImages, data }) => {
     const [asc, setAsc] = React.useState(false);
 
     const filteredData = data && data.data && data.data.filter((item) => {
-        if(item.game.indexOf(':') >= 0) {
+        if(item.title.indexOf(':') >= 0) {
             const exists = data.data.find(
                 (search) => {
-                    return search.game === item.game.replace(":", "");
+                    return search.title === item.title.replace(":", "");
                 }
             );
             return !exists;
@@ -34,11 +34,21 @@ const GameList: React.FC<Props> = ({ preparingImages, data }) => {
     const sortedData = filteredData ? filteredData.sort((prev, curr) => {
         switch(sortBy) {
             case 'rank':
-                return curr.current_rank < prev.current_rank ? 1 : -1;
+                return curr.rank < prev.rank ? 1 : -1;
             case 'alphabetical':
-                return curr.game < prev.game ? 1 : -1;
+                return curr.title < prev.title ? 1 : -1;
             case 'genre':
-                return curr.genre < prev.genre ? 1 : -1;
+                let sortNum = -1;
+                if (curr.genre === null) {
+                    sortNum = -1;
+                }
+                if (prev.genre === null) {
+                    sortNum = 1;
+                }
+                if (curr.genre !== null && prev.genre !== null && curr.genre < prev.genre) {
+                    sortNum = 1;
+                }
+                return sortNum;
             case 'random':
                 return Math.round(Math.random() * 10) >= 5 ? 1 : -1;
             case 'publisher':

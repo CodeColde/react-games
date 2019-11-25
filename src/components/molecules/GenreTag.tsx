@@ -4,15 +4,16 @@ import theme from 'constants/theme';
 import Anchor from 'components/atoms/Anchor';
 
 interface Props {
-    genre: string;
+    genre: string | null;
 }
 
 const GenreTag: React.FC<Props> = ({ genre, children }) => {
-    return (
-        <Anchor url={`/genre/${genre}`} noLine>
-            <Tag>{children}</Tag>
-        </Anchor>
-    )
+    return genre !== null
+        ? (
+            <Anchor url={genre !== null ? `/genre/${genre}` : ''} noLine>
+                <Tag>{children}</Tag>
+            </Anchor>
+        ) : <Tag>{children}</Tag>
 }
 
 export default GenreTag;

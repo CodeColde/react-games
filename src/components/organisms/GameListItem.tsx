@@ -7,12 +7,10 @@ import GenreTag from 'components/molecules/GenreTag';
 import theme from 'constants/theme';
 
 export interface IGameListItem {
-    game: string;
-    genre: string;
+    title: string;
+    rank: number;
+    genre: string | null;
     publisher: string;
-    hours_viewed: number;
-    current_rank: number;
-    previous_rank: number;
 }
 
 interface Props {
@@ -20,17 +18,22 @@ interface Props {
 }
 
 const GameListItem: React.FC<Props> = ({ game }) => {
-    const prepSlug = game.game.split(' ').join('_');
+    const prepSlug = game.title.split(' ').join('_');
+    const prepGenre = game.genre && game.genre.split(' ').join('_');
     return (
         <Wrapper>
             <Anchor url={`/game/${prepSlug}`} noLine>
-                <CoverImage name={game.game} />
+                <CoverImage name={game.title} />
             </Anchor>
-            <GenreTag genre={game.genre.split(' ').join('_')}>{game.genre}</GenreTag>
+            <GenreTag 
+                genre={game.genre && prepGenre}
+            >
+                {game.genre ? game.genre : 'No Genre'}
+            </GenreTag>
             <Anchor url={`/game/${prepSlug}`} noLine>
                 <Header>
                     <Span>{game.publisher}</Span>
-                    {game.game}
+                    {game.title}
                 </Header>
             </Anchor>
         </Wrapper>
